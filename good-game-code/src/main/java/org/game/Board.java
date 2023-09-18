@@ -6,12 +6,13 @@ import org.game.question.generation.QuestionGenerationStrategy;
 import java.util.Map;
 
 public class Board {
-    private static final int BOARD_FIELDS_COUNT = 12;
-
     private final Map<Integer, QuestionGenerationStrategy> moduloToProvider;
+    private final int boardFieldsCount;
 
-    public Board(Map<Integer, QuestionGenerationStrategy> moduloToProvider) {
+    public Board(Map<Integer, QuestionGenerationStrategy> moduloToProvider,
+                 int boardFieldsCount) {
         this.moduloToProvider = moduloToProvider;
+        this.boardFieldsCount = boardFieldsCount;
     }
 
     public Question getQuestion(int boardPosition) {
@@ -26,12 +27,12 @@ public class Board {
 
     // вынес сюда, поскольку может быть неочевидно (ловушки, змейки, лестницы)
     public int playerNewPosition(int currentPosition, int userStep) {
-        return (currentPosition + userStep) % BOARD_FIELDS_COUNT;
+        return (currentPosition + userStep) % boardFieldsCount;
     }
 
     private void validatePlayerPosition(int boardPosition) {
-        if (boardPosition > BOARD_FIELDS_COUNT) {
-            String message = "Board position can't be greater than %s!".formatted(BOARD_FIELDS_COUNT);
+        if (boardPosition > boardFieldsCount) {
+            String message = "Board position can't be greater than %s!".formatted(boardFieldsCount);
             throw new IllegalArgumentException(message);
         }
     }

@@ -15,10 +15,11 @@ import java.util.Map;
 public class GameRunner {
     public static void main(String[] args) {
         int coinsForWinAmount = 6;
+        int boardFieldsCount = 12;
         WinnerChecker winnerChecker = new WinnerChecker(coinsForWinAmount);
         Dice dice = new Dice();
         Prison prison = new Prison();
-        Board board = new Board(buildQuestionMap());
+        Board board = new Board(buildQuestionMap(), boardFieldsCount);
         PlayersProvider playersProvider = new PlayersProvider(registerPlayers());
 
         Game game = new Game(playersProvider, prison, board, dice, winnerChecker);
@@ -33,7 +34,6 @@ public class GameRunner {
         players.add(new Player("Sue"));
 
         return players;
-
     }
 
     private static Map<Integer, QuestionGenerationStrategy> buildQuestionMap() {
